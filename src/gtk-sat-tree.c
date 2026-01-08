@@ -35,6 +35,14 @@
 #include "gtk-sat-tree.h"
 #include "sat-log.h"
 
+#if GTK_CHECK_VERSION(3,0,0)
+
+/* В GTK3 нет GtkObject, но здесь он используется только как базовый GObject */
+typedef GObject      GtkObject;
+typedef GObjectClass GtkObjectClass;
+
+#endif
+
 
 static void     gtk_sat_tree_class_init(GtkSatTreeClass * class);
 static void     gtk_sat_tree_init(GtkSatTree * sat_tree);
@@ -86,7 +94,7 @@ GType gtk_sat_tree_get_type()
 
     return gtk_sat_tree_type;
 }
-
+/*
 static void gtk_sat_tree_class_init(GtkSatTreeClass * class)
 {
     GObjectClass   *gobject_class;
@@ -103,6 +111,20 @@ static void gtk_sat_tree_class_init(GtkSatTreeClass * class)
 
     object_class->destroy = gtk_sat_tree_destroy;
 }
+*/
+static void gtk_sat_tree_class_init (GtkSatTreeClass *class)
+{
+    GObjectClass      *gobject_class;
+    GtkWidgetClass    *widget_class;
+    GtkContainerClass *container_class;
+
+    gobject_class   = G_OBJECT_CLASS (class);
+    widget_class    = GTK_WIDGET_CLASS (class);
+    container_class = GTK_CONTAINER_CLASS (class);
+
+    /* В GTK3 нет GtkObjectClass::destroy, поэтому не трогаем destroy */
+}
+
 
 static void gtk_sat_tree_init(GtkSatTree * sat_tree)
 {
@@ -127,7 +149,7 @@ static void gtk_sat_tree_destroy(GtkObject * object)
         sat_tree->selection = g_slist_remove(sat_tree->selection, data);
     }
 
-    (*GTK_OBJECT_CLASS(parent_class)->destroy) (object);
+//    (*GTK_OBJECT_CLASS(parent_class)->destroy) (object);
 }
 
 /**
