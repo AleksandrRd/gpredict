@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 project(gpredict C)
 
 add_compile_definitions(
-    VERSION=\"2.2.1\"
+    VERSION=\"2.4\"
     PACKAGE_DATA_DIR=\"${CMAKE_INSTALL_FULL_DATAROOTDIR}/gpredict\"
 #    PACKAGE_PIXMAPS_DIR=\"${CMAKE_INSTALL_FULL_DATAROOTDIR}/pixmaps\"
     PACKAGE_PIXMAPS_DIR=\"pixmaps\"
@@ -102,7 +102,7 @@ set(GPREDICT_SOURCES
     src/gtk-sat-module.c
     src/gtk-sat-popup-common.c
     src/gtk-sat-selector.c
-    src/gtk-sat-tree.c
+#    src/gtk-sat-tree.c
     src/gtk-single-sat.c
     src/gtk-sky-glance.c
     src/gui.c
